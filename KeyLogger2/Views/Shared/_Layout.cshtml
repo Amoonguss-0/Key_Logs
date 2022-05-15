@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor _HttpContext
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,6 +28,30 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Password" asp-action="Index">Password list</a>
+                        </li>
+                        @{
+                            string? userEmail = _HttpContext.HttpContext.Session.GetString("Email");
+                        }
+                        @if(userEmail == null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Members" asp-action="Register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Members" asp-action="Login">Sign In</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <p>Hello @userEmail</p> 
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Members" asp-action="Logout">Sign Out</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
