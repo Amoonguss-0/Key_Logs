@@ -27,12 +27,14 @@ namespace KeyLogger2.Controllers
             
             List<Passwords> passwords = await (from Passwords in _context.Password
                                                from Members in _context.Member
-                                               where Members.MemberId == Passwords.MemberId
+                                               where Passwords.MemberId == Members.MemberId
                                                select Passwords
                                                )
                                                .Skip(numPass * (currPage - pageOffSet))
                                                .Take(numPass)
                                                .ToListAsync();
+
+            
 
             PasswordPageViewModel catModel = new(passwords, lastPage, currPage);
             return View(catModel);
@@ -62,7 +64,7 @@ namespace KeyLogger2.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             Passwords? passwordChange = await _context.Password.FindAsync(id);
-            if (passwordChange != null)
+            if (passwordChange == null)
             {
                 return NotFound();
             }
