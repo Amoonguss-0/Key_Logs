@@ -58,5 +58,18 @@ namespace KeyLogger2.Controllers
             return View(passwords);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Edit(Passwords passwordModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Password.Update(passwordModel);
+                await _context.SaveChangesAsync();
+
+                TempData["Message"] = $"{passwordModel.UserName} was updated successfully";
+                return RedirectToAction("Index");
+            }
+            return View(passwordModel);
+        }
     }
 }
