@@ -58,6 +58,17 @@ namespace KeyLogger2.Controllers
             return View(passwords);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            Passwords? passwordChange = await _context.Password.FindAsync(id);
+            if (passwordChange != null)
+            {
+                return NotFound();
+            }
+            return View(passwordChange);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Edit(Passwords passwordModel)
         {
