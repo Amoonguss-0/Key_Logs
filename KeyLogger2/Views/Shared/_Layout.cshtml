@@ -28,9 +28,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Password" asp-action="Index">Password list</a>
-                        </li>
+
                         @{
                             string? userEmail = _HttpContext.HttpContext.Session.GetString("Email");
                         }
@@ -45,11 +43,15 @@
                         }
                         else
                         {
-                            <li>
-                                <p>Hello @userEmail</p> 
+                            
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Password" asp-action="Index">Password list</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Members" asp-action="Logout">Sign Out</a>
+                            </li>
+                            <li>
+                                <p>Hello @userEmail</p> 
                             </li>
                         }
                     </ul>
