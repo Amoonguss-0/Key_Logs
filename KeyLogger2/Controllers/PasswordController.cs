@@ -119,7 +119,7 @@ namespace KeyLogger2.Controllers
             {
                 return NotFound();
             }
-            return RedirectToAction("ConfirmPass", "Members");
+            return View(passDetails);
         }
     }
 }

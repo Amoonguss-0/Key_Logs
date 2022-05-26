@@ -68,29 +68,6 @@ namespace KeyLogger2.Controllers
             return View(loginModel);
         }
 
-        [HttpGet]
-        public IActionResult ConfirmPass()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult ConfirmPass(LoginViewModel loginModel)
-        {
-            if (ModelState.IsValid)
-            {
-                Members? m = (from member in _context.Member
-                              where member.Password == loginModel.Password
-                              select member).SingleOrDefault();
-                if (m != null)
-                {
-                    return RedirectToAction("Details", "Password");
-                }
-                ModelState.AddModelError(String.Empty, "Crendentials not found!");
-            }
-            return RedirectToAction("Details", "Password");
-        }
-
         private void LogUserIn(String email)
         {
             HttpContext.Session.SetString("Email", email);
