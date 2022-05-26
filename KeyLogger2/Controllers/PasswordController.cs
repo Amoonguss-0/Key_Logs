@@ -84,5 +84,42 @@ namespace KeyLogger2.Controllers
             }
             return View(passwordModel);
         }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            Passwords passwordDeletion = await _context.Password.FindAsync(id);
+            if(passwordDeletion == null)
+            {
+                return NotFound();
+            }
+            return View(passwordDeletion);
+        }
+
+        [HttpPost, ActionName("Delete")]
+
+        public async Task<IActionResult> DeleteCon(int id)
+        {
+            Passwords passwordDeletion = await _context.Password.FindAsync(id);
+            if (passwordDeletion != null)
+            {
+                _context.Password.Remove(passwordDeletion);
+                await _context.SaveChangesAsync();
+                TempData["Message"] = "The account was deleted from records";
+                return RedirectToAction("Index");
+            }
+            TempData["Message"] = "The account has been removed already";
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var passDetails = await _context.Password.FindAsync(id);
+
+            if (passDetails == null)
+            {
+                return NotFound();
+            }
+            return RedirectToAction("ConfirmPass", "Members");
+        }
     }
 }
