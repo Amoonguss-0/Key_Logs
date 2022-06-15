@@ -12,5 +12,7 @@ namespace KeyLogger2.Data
         public DbSet<Members> Member { get; set; }
 
         public DbSet<Passwords> Password { get; set; }
+
+        public DbSet<Home> Homes { get; set; }
     }
 }
