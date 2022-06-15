@@ -33,6 +33,25 @@ namespace KeyLogger2.Controllers
             return View(catModel);
         }
 
+        [HttpPost]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Home home)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Homes.Add(home);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+            }
+            return View(home);
+        }
+
         public IActionResult Privacy()
         {
             return View();
